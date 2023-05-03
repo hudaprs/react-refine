@@ -45,7 +45,7 @@ axios.interceptors.response.use(
 //     }
 //   })
 
-//   return queryFilters
+//     return queryFilters
 // }
 
 export const dataProvider = (apiUrl: string): DataProvider => ({
@@ -55,7 +55,7 @@ export const dataProvider = (apiUrl: string): DataProvider => ({
     const { data } = await axios.get(url)
 
     return {
-      data: data.map((result: any) => omit(result, ['category', 'status'])),
+      data,
       total: data.length
     }
   },

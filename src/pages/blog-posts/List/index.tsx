@@ -37,9 +37,7 @@ const List = () => {
         <Table.Column
           dataIndex='content'
           title='Content'
-          render={(value: any) => (
-            <MarkdownField value={value.slice(0, 80) + '...'} />
-          )}
+          render={value => <MarkdownField value={value.slice(0, 80) + '...'} />}
         />
         <Table.Column
           dataIndex={['category', 'id']}
@@ -66,7 +64,7 @@ const List = () => {
         <Table.Column
           dataIndex={['createdAt']}
           title='Created At'
-          render={(value: any) => <DateField value={value} />}
+          render={value => <DateField value={value} />}
         />
         <Table.Column
           title='Actions'
