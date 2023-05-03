@@ -43,6 +43,11 @@ To learn more about **refine**, please check out the [Documentation](https://ref
 - **React Router** [Docs](https://refine.dev/docs/core/providers/router-provider/)
 - **REST Data Provider** [Docs](https://refine.dev/docs/core/providers/data-provider/#overview)
 
+## Notes When Trying refine.dev
+
+1. Node Code Linting
+   When first start to clone the project, the code is absolute mess, especially in indentation (no Javascript standard)
+   ![no-code-linting](./notes/no-code-linting.jpeg)
 
 ## License
 

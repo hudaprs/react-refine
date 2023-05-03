@@ -1,56 +1,68 @@
-import { 
-    Refine,
-    GitHubBanner, 
-    WelcomePage,
-    Authenticated, 
-} from '@refinedev/core';
-import { RefineKbar, RefineKbarProvider } from "@refinedev/kbar";
+// Refine
+import { Refine, WelcomePage } from '@refinedev/core'
+import { RefineKbarProvider } from '@refinedev/kbar'
+import {
+  ErrorComponent,
+  notificationProvider,
+  ThemedLayoutV2
+} from '@refinedev/antd'
+import dataProvider from '@refinedev/simple-rest'
+import { AntdInferencer } from '@refinedev/inferencer/antd'
+import routerBindings, {
+  UnsavedChangesNotifier
+} from '@refinedev/react-router-v6'
 
-import { AuthPage,ErrorComponent
-,notificationProvider
-,ThemedLayoutV2} from '@refinedev/antd';
-import "@refinedev/antd/dist/reset.css";
+// React Router DOM
+import { BrowserRouter, Route, Routes, Outlet } from 'react-router-dom'
 
-import { BrowserRouter, Route, Routes, Outlet } from "react-router-dom";
-import routerBindings, { NavigateToResource, CatchAllNavigate, UnsavedChangesNotifier } from "@refinedev/react-router-v6";
-import dataProvider from "@refinedev/simple-rest";
-import { ColorModeContextProvider } from "./contexts/color-mode";
-import { Header } from "./components/header";
-
-
-
-
+// Refine - Antd
+import '@refinedev/antd/dist/reset.css'
 
 function App() {
-    
-
-    
-    
-    return (
-        <BrowserRouter>
-        <GitHubBanner />
-        <RefineKbarProvider>
-            <ColorModeContextProvider>
-            <Refine notificationProvider={notificationProvider}
-routerProvider={routerBindings}
-dataProvider={dataProvider("https://api.fake-rest.refine.dev")} 
-                options={{
-                    syncWithLocation: true,
-                    warnWhenUnsavedChanges: true,
-                }}
+  return (
+    <BrowserRouter>
+      <RefineKbarProvider>
+        <Refine
+          notificationProvider={notificationProvider}
+          routerProvider={routerBindings}
+          dataProvider={dataProvider('https://api.fake-rest.refine.dev')}
+          options={{
+            syncWithLocation: true,
+            warnWhenUnsavedChanges: true
+          }}
+          resources={[
+            {
+              name: 'blog_posts',
+              list: '/blog-posts',
+              show: '/blog-posts/show/:id',
+              create: '/blog-posts/create',
+              edit: '/blog-posts/edit/:id'
+            }
+          ]}
+        >
+          <Routes>
+            <Route index element={<WelcomePage />} />
+            <Route
+              element={
+                <ThemedLayoutV2>
+                  <Outlet />
+                </ThemedLayoutV2>
+              }
             >
+              <Route path='blog-posts'>
+                <Route index element={<AntdInferencer />} />
+                <Route path='show/:id' element={<AntdInferencer />} />
+                <Route path='edit/:id' element={<AntdInferencer />} />
+                <Route path='create' element={<AntdInferencer />} />
+              </Route>
+              <Route path='*' element={<ErrorComponent />} />
+            </Route>
+          </Routes>
+          <UnsavedChangesNotifier />
+        </Refine>
+      </RefineKbarProvider>
+    </BrowserRouter>
+  )
+}
 
-
-                    <Routes>
-                        <Route index element={<WelcomePage />} />
-                    </Routes>
-                <RefineKbar />
-                <UnsavedChangesNotifier />
-            </Refine>
-            </ColorModeContextProvider>
-        </RefineKbarProvider>
-        </BrowserRouter>
-      );
-};
-
-export default App;
+export default App
