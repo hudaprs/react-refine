@@ -47,7 +47,18 @@ To learn more about **refine**, please check out the [Documentation](https://ref
 
 1. Node Code Linting
    When first start to clone the project, the code is absolute mess, especially in indentation (no Javascript standard)
-   ![no-code-linting](./notes/no-code-linting.jpeg)
+   ![no-code-linting](./notes/01-no-code-linting.jpeg)
+
+2. Multiple request
+   When first time to came to specific page, query hit multiple times. And if data have `unique value` refine will hit it.
+   ![multiple-request](./notes/02-hit-multiple-request.jpeg)
+
+3. Not Recommended to use auto generated CRUD in production environment
+   Refine told us to actually don't use auto generated CRUD by Inferencer feature, because backend data structure will be different in the future (FE will need customize, map, or maybe mutate the value it-self in the client side).
+   ![not-recommended-to-use-generated-CRUD-in-production-environment](./notes/03-not-recommended-to-use-auto-crud-in-production.jpeg)
+
+4. Object inside the response will be represented as [Relationship](https://refine.dev/docs/tutorial/adding-crud-pages/headless/index/#handling-relationships)
+   if theres any object inside response, will be say as Relationship, just like SQL. And it's make client call API multiple API request to the server. This is related to note number 3.
 
 ## License
 
